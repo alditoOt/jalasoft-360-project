@@ -1,0 +1,21 @@
+[
+  {
+    "transactionId": 1,
+    "timestamp": {
+      "date": {
+        "year": 2023,
+        "month": 11,
+        "day": 22
+      },
+      "time": {
+        "hour": 20,
+        "minute": 49,
+        "second": 35,
+        "nano": 251945000
+      }
+    },
+    "sender": "ACC-1001",
+    "receiver": "ACC-1000",
+    "amount": 20.0
+  }
+]

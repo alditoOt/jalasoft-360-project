@@ -1,0 +1,14 @@
+[
+  {
+    "accountNumber": "ACC-1000",
+    "balance": 90.0,
+    "ownerName": "Aldo Oporto",
+    "uniqueID": 1000
+  },
+  {
+    "accountNumber": "ACC-1001",
+    "balance": 10.0,
+    "ownerName": "John Doe",
+    "uniqueID": 1001
+  }
+]
