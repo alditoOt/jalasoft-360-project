@@ -1,9 +1,11 @@
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
   private final Bank bank;
   private final Scanner scanner;
+  private int choice;
 
   public Menu(Bank bank) {
     this.bank = bank;
@@ -14,7 +16,7 @@ public class Menu {
     boolean exit = false;
 
     while (!exit) {
-      System.out.println("\nWelcome to the Simple Banking System!");
+      System.out.println("\nWelcome to A.L.D.O.!");
       System.out.println("1. Create Account");
       System.out.println("2. Deposit Into Account");
       System.out.println("3. Withdraw From Account");
@@ -23,8 +25,12 @@ public class Menu {
       System.out.println("6. Show Transaction History");
       System.out.println("7. Exit");
       System.out.print("Enter your choice: ");
-      int choice = scanner.nextInt();
-      scanner.nextLine(); // Consume newline
+      try {
+      choice = scanner.nextInt();
+      scanner.nextLine();
+      } catch(InputMismatchException e) {
+        scanner.nextLine();
+      }
 
       switch (choice) {
         case 1:
@@ -47,7 +53,7 @@ public class Menu {
           break;
         case 7:
           exit = true;
-          System.out.println("Thank you for using the Banking System!");
+          System.out.println("Thank you for using A.L.D.O.!");
           break;
         default:
           System.out.println("Invalid choice. Please enter a valid option.");
@@ -66,18 +72,16 @@ public class Menu {
   private void depositIntoAccount() {
     System.out.println("Enter account number: ");
     String accountNumber = scanner.nextLine();
+    double amount = amountWithExceptionHandling("Enter amount to deposit: ");
 
-    System.out.println("Enter amount to deposit: ");
-    double amount = scanner.nextDouble();
     bank.deposit(accountNumber, amount);
   }
 
   private void withdrawFromAccount() {
     System.out.println("Enter account number: ");
     String accountNumber = scanner.nextLine();
+    double amount = amountWithExceptionHandling("Enter amount to withdraw> ");
 
-    System.out.println("Enter amount to withdraw: ");
-    double amount = scanner.nextDouble();
     bank.withdraw(accountNumber, amount);
   }
 
@@ -86,9 +90,8 @@ public class Menu {
     String sender = scanner.nextLine();
     System.out.print("Enter receiver's account number: ");
     String receiver = scanner.nextLine();
-    System.out.print("Enter amount to transfer: ");
-    double amount = scanner.nextDouble();
-    scanner.nextLine(); // Consume newline
+
+    double amount = amountWithExceptionHandling("Enter amount to transfer: ");
 
     bank.processTransaction(sender, receiver, amount);
   }
@@ -106,5 +109,18 @@ public class Menu {
       System.out.println("Transaction ID: " + transaction.getTransactionId() + ", Sender: " + transaction.getSender() +
           ", Receiver: " + transaction.getReceiver() + ", Amount: $" + transaction.getAmount() + ", Timestamp: " + transaction.getTimestamp());
     }
+  }
+
+  private double amountWithExceptionHandling(String message) {
+    System.out.print(message);
+    double amount;
+    try {
+      amount = scanner.nextDouble();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid value. Please input a numerical value.");
+      scanner.nextLine();
+      return 0;
+    }
+    return amount;
   }
 }

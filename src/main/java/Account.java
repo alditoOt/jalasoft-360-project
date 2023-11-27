@@ -62,7 +62,7 @@ public class Account {
       }
     }
     else {
-      System.out.println("Invalid amount for withdrawal. Operation will end now.");
+      System.out.println("Invalid amount for withdrawal.");
     }
   }
 
