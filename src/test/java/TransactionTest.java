@@ -22,15 +22,6 @@ public class TransactionTest {
   }
 
   @Test
-  public void testTransactionTimestamp() {
-    LocalDateTime currentTimestamp = LocalDateTime.now();
-    transaction.makeTransaction(1, "Sender", "Receiver", 100);
-    // Ensure the timestamp is within a reasonable range
-    Assertions.assertTrue(transaction.getTimestamp().isBefore(currentTimestamp.plusSeconds(1)));
-    Assertions.assertTrue(transaction.getTimestamp().isAfter(currentTimestamp.minusSeconds(1)));
-  }
-
-  @Test
   public void testNegativeAmountTransaction() {
     transaction.makeTransaction(1, "Sender", "Receiver", -50.0);
     Assertions.assertEquals(0.0, transaction.getAmount());

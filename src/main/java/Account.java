@@ -41,16 +41,6 @@ public class Account {
     return prefix + "-" + uniqueID;
   }
 
-  // Unused, but I left it to show how Testing impacted changes in the code
-//  public void withdrawNoMessageForInvalidAmount(double amount) {
-//    if (amount > 0 && balance >= amount) {
-//      balance -= amount;
-//      System.out.println("Withdrawn: $" + amount + ". New balance is: $" + balance);
-//    } else {
-//      System.out.println("Insufficient funds for withdrawal!");
-//    }
-//  }
-
   public void withdraw(double amount) {
     if (amount > 0) {
       if (balance >= amount) {

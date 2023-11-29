@@ -90,8 +90,8 @@ public class BankTest {
   public void testWithdrawInvalidAmount() throws IOException {
     bank.createAccount("Aldo Oporto");
     bank.deposit("ACC-1000", 50);
-    bank.withdraw("ACC-1000", 100); //Attempt to withdraw more than balance
     bank.withdraw("ACC-1000", -10); //Attempt to withdraw invalid amount
+    bank.withdraw("ACC-1000", 100); //Attempt to withdraw more than balance
 
     Assertions.assertNotEquals(-50, new ArrayList<>(bank.getAllAccounts()).get(0).getBalance());
   }
@@ -109,6 +109,18 @@ public class BankTest {
     Assertions.assertEquals("ACC-1000", transactions.get(0).getSender());
     Assertions.assertEquals("ACC-1001", transactions.get(0).getReceiver());
     Assertions.assertEquals(50.0, transactions.get(0).getAmount());
+  }
+
+  @Test
+  public void testProcessNegativeTransaction() throws IOException {
+    bank.createAccount("Sender");
+    bank.createAccount("Receiver");
+    bank.deposit("ACC-1000", 350); //Depositing into Sender account
+
+    bank.processTransaction("ACC-1000", "ACC-1001", -50.0);
+    List<Transaction> transactions = new ArrayList<>(bank.getTransactionHistory());
+
+    Assertions.assertEquals(0, transactions.size());
   }
 
   @Test
