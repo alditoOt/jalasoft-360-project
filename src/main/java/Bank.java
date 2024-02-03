@@ -23,11 +23,16 @@ public class Bank {
     accounts.addAll(storedAccounts);
     }
     Account newAccount;
-    if(accounts.size() != 10) {
-      newAccount = new Account(ownerName, new ArrayList<>(accounts).get(accounts.size() - 1).getUniqueID() + 1);
-    }
-    else {
-      newAccount = new Account(ownerName, INITIAL_UNIQUE_ID);
+
+    for (int i = 0; i < 10; i ++) {
+      
+      if(accounts.size() == 0) {
+        newAccount = new Account(ownerName, new ArrayList<>(accounts).get(accounts.size() - 1).getUniqueID() + 1);
+      }
+      else {
+        newAccount = new Account(ownerName, INITIAL_UNIQUE_ID);
+      }
+
     }
     accounts.add(newAccount);
     System.out.println("New account created for " + ownerName + ": " + newAccount.getAccountNumber());
